@@ -12,8 +12,8 @@ pipeline {
     environment {
         author_name = "Ignacio Heredia (CSIC)"
         author_email = "iheredia@ifca.unican.es"
-        app_name = "audio-classification-tf"
-        job_location = "Pipeline-as-code/DEEP-OC-org/DEEP-OC-audio-classification-tf/${env.BRANCH_NAME}"
+        app_name = "underwater-noise-classification"
+        job_location = "Pipeline-as-code/DEEP-OC-org/UC-lifewatch-DEEP-OC-underwater-noise-classification/${env.BRANCH_NAME}"
     }
 
     stages {

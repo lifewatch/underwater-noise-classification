@@ -1,7 +1,7 @@
 DEEP Open Catalogue: Audio classifier
 =====================================
 
-[![Build Status](https://jenkins.indigo-datacloud.eu:/buildStatus/icon?job=Pipeline-as-code/DEEP-OC-org/audio-classification-tf/master)](https://jenkins.indigo-datacloud.eu/job/Pipeline-as-code/job/DEEP-OC-org/job/audio-classification-tf/job/master)
+[![Build Status](https://jenkins.indigo-datacloud.eu:/buildStatus/icon?job=Pipeline-as-code/DEEP-OC-org/underwater-noise-classification/master)](https://jenkins.indigo-datacloud.eu/job/Pipeline-as-code/job/DEEP-OC-org/job/UC-lifewatch-underwater-noise-classification/job/master)
 
 **Author/Mantainer:** [Ignacio Heredia](https://github.com/IgnacioHeredia) (CSIC)
 
@@ -12,7 +12,7 @@ This is a plug-and-play tool to perform audio classification with Deep Learning.
 samples of audio as well as training their own classifier for a custom problem. The classifier is currently
 [pretrained](models/default) on the 527 high-level classes from the [AudioSet](https://research.google.com/audioset/) dataset.
 
-You can find more information about it in the [DEEP Marketplace](https://marketplace.deep-hybrid-datacloud.eu/modules/deep-oc-audio-classification-tf.html).
+You can find more information about it in the [DEEP Marketplace](https://marketplace.deep-hybrid-datacloud.eu/modules/uc-lifewatch-deep-oc-underwater-noise-classification.html).
 
 **Table of contents**
 1. [Installing this module](#installing-this-module)
@@ -40,13 +40,13 @@ You can find more information about it in the [DEEP Marketplace](https://marketp
 > - It is a requirement to have [Tensorflow>=1.14.0 installed](https://www.tensorflow.org/install/pip) (either in gpu
 > or cpu mode). This is not listed in the `requirements.txt` as it [breaks GPU support](https://github.com/tensorflow/tensorflow/issues/7166).
 
-To start using this framework clone the repo and download the [default weights](https://api.cloud.ifca.es:8080/swift/v1/audio-classification-tf/default.tar.gz):
+To start using this framework clone the repo and download the [default weights](https://api.cloud.ifca.es:8080/swift/v1/underwater-noise-classification/default.tar.gz):
 
 ```bash
-git clone https://github.com/deephdc/audio-classification-tf
-cd audio-classification-tf
+git clone https://github.com/deephdc/underwater-noise-classification
+cd underwater-noise-classification
 pip install -e .
-curl -o ./models/default.tar.gz https://api.cloud.ifca.es:8080/swift/v1/audio-classification-tf/default.tar.gz
+curl -o ./models/default.tar.gz https://api.cloud.ifca.es:8080/swift/v1/underwater-noise-classification/default.tar.gz
 cd models && tar -zxvf default.tar.gz && rm default.tar.gz 
 ```
 now run DEEPaaS:
@@ -57,12 +57,12 @@ and open http://0.0.0.0:5000/ui and look for the methods belonging to the `audio
 
 ### Docker installation
 
-We have also prepared a ready-to-use [Docker container](https://github.com/deephdc/DEEP-OC-audio-classification-tf) to
+We have also prepared a ready-to-use [Docker container](https://hub.docker.com/r/deephdc/uc-lifewatch-deep-oc-underwater-noise-classification) to
 run this module. To run it:
 
 ```bash
 docker search deephdc
-docker run -ti -p 5000:5000 -p 6006:6006 -p 8888:8888 deephdc/deep-oc-audio-classification-tf
+docker run -ti -p 5000:5000 -p 6006:6006 -p 8888:8888 deephdc/deep-oc-underwater-noise-classification
 ```
 
 Now open http://0.0.0.0:5000/ui and look for the methods belonging to the `audioclas` module.
