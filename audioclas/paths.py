@@ -10,8 +10,7 @@ Github: ignacioheredia
 import os.path
 from datetime import datetime
 
-# from audioclas import config
-import config
+from audioclas import config
 
 
 homedir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,7 +41,7 @@ def get_dataset_dir():
 
 def get_embeddings_dir():
     upper_dir = os.path.dirname(get_dataset_dir())
-    return os.path.join(upper_dir, 'embeddings')
+    return os.path.join(upper_dir, 'embeddings50')
 
 
 def get_splits_dir():
@@ -72,6 +71,8 @@ def get_conf_dir():
 def get_stats_dir():
     return os.path.join(get_timestamped_dir(), "stats")
 
+def get_plots_dir():
+    return os.path.join(get_timestamped_dir(), "plots")
 
 def get_ts_splits_dir():
     return os.path.join(get_timestamped_dir(), "dataset_files")
@@ -92,6 +93,7 @@ def get_dirs():
             'checkpoints dir': get_checkpoints_dir(),
             'configuration dir': get_conf_dir(),
             'statistics dir': get_stats_dir(),
+            'plots dir': get_plots_dir(),
             'timestamped data splits dir': get_ts_splits_dir(),
             'predictions dir': get_predictions_dir(),
             }

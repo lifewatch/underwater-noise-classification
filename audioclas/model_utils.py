@@ -32,8 +32,7 @@ def create_model(CONF, base_model):
     """
     # Remove last layer of the pre-trained model and add custom layers at the top to adapt it to our problem
     x = base_model.layers[-3].output
-    predictions = Dense(CONF['model']['num_classes'],
-                        activation='softmax')(x)
+    predictions = Dense(1, activation='sigmoid')(x)
 
     # Full model
     model = Model(inputs=base_model.input, outputs=predictions)

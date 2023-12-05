@@ -7,7 +7,6 @@ Email: iheredia@ifca.unican.es
 Github: ignacioheredia
 """
 
-
 import os
 import io
 import subprocess
@@ -51,11 +50,11 @@ def load_data_splits(splits_dir, dataset_dir, split_name='train'):
     split = np.genfromtxt(os.path.join(splits_dir, '{}.txt'.format(split_name)), dtype='str', delimiter=' ')
     X = np.array([os.path.join(dataset_dir, i) for i in split[:, 0]])
 
-    if len(split.shape) == 2:
-        y = split[:, 1].astype(np.int32)
-    else: # maybe test file has not labels
-        y = None
-
+#     if len(split.shape) == 2:
+    y = split[:, 1].astype(np.float32)
+#     else: # maybe test file has not labels
+#         y = None
+    print("new version")
     return X, y
 
 
@@ -115,7 +114,7 @@ class data_sequence(Sequence):
         self.inputs = inputs
         self.targets = targets
         self.batch_size = batch_size
-        self.num_classes = num_classes
+#         self.num_classes = num_classes
         self.shuffle = shuffle
         self.on_epoch_end()
 
@@ -131,7 +130,8 @@ class data_sequence(Sequence):
                 sample = np.expand_dims(sample, axis=0)
             batch_X.append(sample)
         batch_X = np.vstack(batch_X)
-        batch_y = to_categorical(self.targets[batch_idxs], num_classes=self.num_classes)
+        batch_y = self.targets[batch_idxs] 
+#         batch_y = to_categorical(self.targets[batch_idxs], num_classes=self.num_classes)
         return batch_X, batch_y
 
     def on_epoch_end(self):
@@ -155,15 +155,19 @@ def generate_embeddings(model_wrap, filepaths, labels, shuffle=True):
             path.mkdir(parents=True, exist_ok=True)
 
             # Compute embeddings
-            raw_embeddings = model_wrap.generate_embeddings(f.read())
-            embeddings_processed = model_wrap.classifier_pre_process(raw_embeddings)
+            try:
+                raw_embeddings = model_wrap.generate_embeddings(f.read())
+                embeddings_processed = model_wrap.classifier_pre_process(raw_embeddings)
 
-            # Save each 10s embedding in a separate .npy file
-            for i, sample in enumerate(embeddings_processed):
-                spath = tmp_path + '-{}.npy'.format(i)
-                np.save(spath, np.expand_dims(sample, axis=0))
-                new_paths.append(spath)
-                new_labels.append(lab)
+                # Save each 10s embedding in a separate .npy file
+                for i, sample in enumerate(embeddings_processed):
+                    spath = tmp_path + '-{}.npy'.format(i)
+                    np.save(spath, np.expand_dims(sample, axis=0))
+                    new_paths.append(spath)
+                    new_labels.append(lab)
+            except:
+                print(f"skipped {fpath} because error in pre process embedding")
+                pass
 
     # Shuffle lists
     new_paths, new_labels = np.array(new_paths), np.array(new_labels)
@@ -186,6 +190,21 @@ def save_embeddings_txt(filepaths, labels, name):
 
     np.savetxt(os.path.join(paths.get_ts_splits_dir(), name), np.array([new_paths, labels]).T, delimiter=' ', fmt='%s')
 
+def save_embeddings_txt_update(filepaths, labels, name):
+    merged_strings = []
+    for i in range(len(new_paths)):
+        path = new_paths[i]
+        label_values = labels[i]
+
+        # Format the label values as a comma-separated string
+        label_string = ', '.join([f'{value:.3f}' for value in label_values])
+
+        # Combine path and label string
+        merged_string = f"{path} {label_string}"
+
+        # Append to the result list
+        merged_strings.append(merged_string)
+    np.savetxt(os.path.join(paths.get_ts_splits_dir(), name), merged_strings, delimiter=' ', fmt='%s')
 
 def json_friendly(d):
     """
