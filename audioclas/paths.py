@@ -41,7 +41,7 @@ def get_dataset_dir():
 
 def get_embeddings_dir():
     upper_dir = os.path.dirname(get_dataset_dir())
-    return os.path.join(upper_dir, 'embeddings50')
+    return os.path.join(upper_dir, 'embeddings50_extra')
 
 
 def get_splits_dir():
