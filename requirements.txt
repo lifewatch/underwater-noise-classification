@@ -14,3 +14,4 @@ aiohttp>=3.6.2
 deepaas>=1.0.0
 matplotlib>=3.3.4
 pandas>=1.1.5
+scikit-learn>=0.24.2
