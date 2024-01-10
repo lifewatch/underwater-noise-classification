@@ -26,6 +26,7 @@ def create_txt_files(absence_boats_folder, train_txt_file, test_txt_file, val_tx
                 AudioSegment.from_file(file_path) 
                 file_paths.append(relative_path)
             except:
+                print("skipping")
                 pass
     # Get a list of folder names within the "absence_boats" directory
 
@@ -79,15 +80,15 @@ def create_txt_files(absence_boats_folder, train_txt_file, test_txt_file, val_tx
 train_ratio = 0.9
 test_ratio = 0.1
 val_ratio = 0
-absence_boats_folder = 'C:/Users/wout.decrop/project_environment/module_imagine/audio-classification-tf/data/audios'
-data_set_folder = 'C:/Users/wout.decrop/project_environment/module_imagine/audio-classification-tf/data/dataset_files'
+absence_boats_folder = 'C:/Users/wout.decrop/project_environment/module_imagine/underwater-noise-classification/data/audios'
+data_set_folder = 'C:/Users/wout.decrop/project_environment/module_imagine/underwater-noise-classification/data/dataset_files'
 
-absence_boats_folder = '/srv/audio-classification-tf/data/audios'
-data_set_folder = '/srv/audio-classification-tf/data/dataset_files'
+absence_boats_folder = '/srv/underwater-noise-classification/data/audios'
+data_set_folder = '/srv/underwater-noise-classification/data/dataset_files'
 
 absence_boats_folder = '/storage/Imagine_UC6/data_new_ais/data50_extra'
 # data_set_folder = '/storage/Imagine_UC6/data_new_ais/dataset_files'
-data_set_folder = '/srv/audio-classification-tf/data/dataset_files'
+data_set_folder = '/srv/underwater-noise-classification/data/dataset_files'
 train_txt_file=os.path.join(data_set_folder,'train.txt')
 test_txt_file =os.path.join(data_set_folder,'test.txt')
 val_txt_file=os.path.join(data_set_folder,'val.txt')
